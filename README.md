@@ -1,0 +1,2 @@
+# sunappy_gacha
+ガチャ
