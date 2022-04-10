@@ -3,5 +3,5 @@ envfile
 *.*~
 .#*
 \#*\#
-dist/*
+dist/
 !dummy
