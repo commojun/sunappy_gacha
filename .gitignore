@@ -5,6 +5,8 @@ envfile
 \#*\#
 dist/
 bin/*
+public/gacha/*
+public/gacha/img/*
 !dummy
 
 .DS_Store

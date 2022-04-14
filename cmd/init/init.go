@@ -56,7 +56,7 @@ func main() {
 		rarity := CalcRarity(name)
 
 		remotePath := remoteFolder + "/" + name
-		localPath := localFolder + "/" + name
+		localPath := localFolder + "/img/" + name
 
 		// すでにファイルがあればDLしない
 		if fileExists(localPath) {
