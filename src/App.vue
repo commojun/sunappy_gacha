@@ -1,18 +1,14 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <GachaMain rarity="SSR" resultItemName="20170519_oota.png"/>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import HelloWorld from './components/HelloWorld.vue';
+<script setup lang="ts">
+ import { onMounted } from 'vue';
+ import GachaMain from './components/GachaMain.vue';
 
-@Options({
-  components: {
-    HelloWorld,
-  },
-})
-export default class App extends Vue {}
+ onMounted(() => {
+   console.log("this is app")
+ })
 </script>
 
 <style>
