@@ -7,8 +7,8 @@
  import GachaMain from './components/GachaMain.vue';
 
  onMounted(() => {
-   console.log("this is app")
- })
+   console.log("this is app");
+ });
 </script>
 
 <style>

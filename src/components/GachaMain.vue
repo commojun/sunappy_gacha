@@ -10,33 +10,36 @@
 <script setup lang="ts">
  import { ref, computed, onMounted } from 'vue';
  import { useStore } from 'vuex';
- import { axios } from 'axios';
- import { Gacha } from '/store/store.ts'
+ import axios from 'axios';
+ import { Gacha, key } from '../store/store.ts';
 
- const store = useStore();
+ const store = useStore(key);
  const rarity: string = ref("SSR");
  const itemName: string = ref("20170519_oota.png");
 
  const itemPath = computed((): string => {
-   return `/gacha/img/${itemName.value}`
+   return `/gacha/img/${itemName.value}`;
  });
 
  const draw = (): void => {
    console.log("draw!!");
    rarity.value = "SR";
    itemName.value = "20170523_rakuten.png";
+   console.log(store.state.gacha.table.ssr_items[3]);
  };
 
  onMounted(() => {
-   const json: Gacha = (async() => {
+   const getJson = async () => {
+     let res;
      try {
-       const res = await axios.get('/gacha/gacha.json');
-       return res.data;
+       res = await axios.get('/gacha/gacha.json');
      } catch (err) {
        console.log(err);
      }
-   });
-   store.commit("initGacha", json);
+     const gacha: Gacha = res.data;
+     store.commit("initGacha", gacha);
+   };
+   getJson();
  });
 </script>
 

@@ -1,4 +1,5 @@
-import { createStore } from 'vuex';
+import { InjectionKey } from 'vue';
+import { createStore, Store } from 'vuex';
 
 export type Gacha = {
   emission_rate: {
@@ -15,10 +16,12 @@ export type Gacha = {
   },
 };
 
-type State = {
+export interface State {
   gacha: Gacha
   count: number
 }
+
+export const key: InjectionKey<Store<State>> = Symbol();
 
 export const store = createStore<State>({
   state: {
