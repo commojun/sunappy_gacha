@@ -1,5 +1,5 @@
 <template>
-  <GachaMain rarity="SSR" resultItemName="20170519_oota.png"/>
+  <GachaMain />
 </template>
 
 <script setup lang="ts">
