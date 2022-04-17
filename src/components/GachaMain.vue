@@ -4,6 +4,7 @@
     <img :src="itemPath" class="result-item">
     <h2>{{ itemName }}</h2>
     <button @click="draw">がちゃを引く</button>
+    <h4>現在{{ drawCount }}回</h4>
   </div>
 </template>
 
@@ -21,11 +22,16 @@
    return `/gacha/img/${itemName.value}`;
  });
 
+ const drawCount = computed((): number => {
+   return store.state.count;
+ });
+
  const draw = (): void => {
    console.log("draw!!");
    rarity.value = "SR";
    itemName.value = "20170523_rakuten.png";
    console.log(store.state.gacha.table.ssr_items[3]);
+   store.commit("increment");
  };
 
  onMounted(() => {

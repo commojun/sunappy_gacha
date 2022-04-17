@@ -16,10 +16,10 @@ export type Gacha = {
   },
 };
 
-export interface State {
-  gacha: Gacha
-  count: number
-}
+export type State = {
+  gacha: Gacha,
+  count: number,
+};
 
 export const key: InjectionKey<Store<State>> = Symbol();
 
