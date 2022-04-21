@@ -5,8 +5,8 @@
     <h4>現在{{ spent }}円</h4>
     <hr>
     <h1>{{ rarity }}</h1>
-    <img :src="itemPath" class="result-item">
     <h2>{{ itemName }}</h2>
+    <img :src="itemPath" class="result-item">
   </div>
 </template>
 
@@ -56,5 +56,8 @@
 <style scoped>
  div.main {
    text-align: center
+ }
+ .result-item {
+   max-width: 70%
  }
 </style>
