@@ -1,10 +1,12 @@
 <template>
   <div class="main">
+    <h1>ガチャ</h1>
+    <button @click="draw">がちゃを引く</button>
+    <h4>現在{{ spent }}円</h4>
+    <hr>
     <h1>{{ rarity }}</h1>
     <img :src="itemPath" class="result-item">
     <h2>{{ itemName }}</h2>
-    <button @click="draw">がちゃを引く</button>
-    <h4>現在{{ drawCount }}回</h4>
   </div>
 </template>
 
@@ -13,6 +15,7 @@
  import { useStore } from 'vuex';
  import axios from 'axios';
  import { Gacha, key } from '../store/store.ts';
+ import { GachaModel, GachaResult } from '../models/gacha.ts';
 
  const store = useStore(key);
  const rarity: string = ref("SSR");
@@ -22,16 +25,16 @@
    return `/gacha/img/${itemName.value}`;
  });
 
- const drawCount = computed((): number => {
-   return store.state.count;
+ const spent = computed((): number => {
+   return store.state.count * 300;
  });
 
  const draw = (): void => {
-   console.log("draw!!");
-   rarity.value = "SR";
-   itemName.value = "20170523_rakuten.png";
-   console.log(store.state.gacha.table.ssr_items[3]);
    store.commit("increment");
+   const model = new GachaModel(store.state.gacha);
+   const result: GachaResult  = model.draw();
+   rarity.value = result.rarity;
+   itemName.value = result.name;
  };
 
  onMounted(() => {
@@ -41,6 +44,7 @@
        res = await axios.get('/gacha/gacha.json');
      } catch (err) {
        console.log(err);
+       return;
      }
      const gacha: Gacha = res.data;
      store.commit("initGacha", gacha);
