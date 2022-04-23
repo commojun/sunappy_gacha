@@ -23,8 +23,8 @@
 
  const store = useStore(key);
  const rarities = Object.values(RARITY);
- const rarity: string = ref("レアリティ");
- const itemName: string = ref("20170519_oota.png");
+ const rarity: string = ref("ガチャ結果がここに出ます");
+ const itemName: string = ref("../.." + require("@/assets/gachagacha.png"));
 
  const itemPath = computed((): string => {
    return `/gacha/img/${itemName.value}`;

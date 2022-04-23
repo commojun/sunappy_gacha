@@ -48,6 +48,7 @@ export const store = createStore<State>({
   },
 });
 
+// onMountedで呼ぶ想定
 export const initGacha = async () => {
      let res;
      try {
