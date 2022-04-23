@@ -1,15 +1,21 @@
-import { Store } from 'vuex';
-import { Gacha } from '../store/store';
-
 // 参考
 // https://www.kabuku.co.jp/developers/good-bye-typescript-enum
-const RARITY = {
+export const RARITY = {
   SSR: "SSR",
   SR: "SR",
   R: "R",
   N: "N",
 } as const;
 export type RARITY = typeof RARITY[keyof typeof RARITY];
+
+export type Gacha = {
+  emission_rate: {
+    [key in RARITY]: number;
+  },
+  table: {
+    [key in RARITY]: string[];
+  },
+};
 
 export type GachaResult = {
   rarity: RARITY,
@@ -31,10 +37,10 @@ export class GachaModel {
     const rarity = this.drawRarity();
     // レアリティ抽選に基づいてテーブルを決定
     let table: string[];
-    if (rarity == RARITY.SSR) table = this.config.table.ssr_items;
-    else if (rarity == RARITY.SR) table = this.config.table.sr_items;
-    else if (rarity == RARITY.R) table = this.config.table.sr_items;
-    else table = this.config.table.n_items;
+    if (rarity == RARITY.SSR) table = this.config.table[RARITY.SSR];
+    else if (rarity == RARITY.SR) table = this.config.table[RARITY.SR];
+    else if (rarity == RARITY.R) table = this.config.table[RARITY.R];
+    else table = this.config.table[RARITY.N];
 
     // tableから無作為抽出
     const lot: number = this.random(table.length);
@@ -54,9 +60,9 @@ export class GachaModel {
     }
     let lot: number = this.random(totalRate);
     console.log("lot:"+lot);
-    if      ((lot -= emissionRate.ssr_odds) < 0) return RARITY.SSR;
-    else if ((lot -= emissionRate.sr_odds)  < 0) return RARITY.SR;
-    else if ((lot -= emissionRate.r_odds)   < 0) return RARITY.R;
+    if      ((lot -= emissionRate[RARITY.SSR]) < 0) return RARITY.SSR;
+    else if ((lot -= emissionRate[RARITY.SR])  < 0) return RARITY.SR;
+    else if ((lot -= emissionRate[RARITY.R])   < 0) return RARITY.R;
     else return RARITY.N;
   }
 }

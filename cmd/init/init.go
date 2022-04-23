@@ -26,16 +26,16 @@ func main() {
 
 	sunappyGacha := sunappy_gacha.SunappyGacha{
 		EmissionRate: sunappy_gacha.EmissionRate{
-			SSROdds: 3,
-			SROdds:  30,
-			ROdds:   300,
-			NOdds:   667,
+			SSR: 3,
+			SR:  30,
+			R:   300,
+			N:   667,
 		},
 		Table: sunappy_gacha.Table{
-			SSRItems: []string{},
-			SRItems:  []string{},
-			RItems:   []string{},
-			NItems:   []string{},
+			SSR: []string{},
+			SR:  []string{},
+			R:   []string{},
+			N:   []string{},
 		},
 	}
 

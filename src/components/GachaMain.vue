@@ -3,6 +3,11 @@
     <h1>ガチャ</h1>
     <button @click="draw">がちゃを引く</button>
     <h4>現在{{ spent }}円</h4>
+    <h4>
+      <span v-for="r of rarities" :key="r">
+        {{ r }}: {{ store.state.rarityCount[r] }}個
+      </span>
+    </h4>
     <hr>
     <h1>{{ rarity }}</h1>
     <h2>{{ itemName }}</h2>
@@ -13,12 +18,12 @@
 <script setup lang="ts">
  import { ref, computed, onMounted } from 'vue';
  import { useStore } from 'vuex';
- import axios from 'axios';
- import { Gacha, key } from '../store/store.ts';
- import { GachaModel, GachaResult } from '../models/gacha.ts';
+ import { key, initGacha } from '../store/store';
+ import { RARITY, GachaModel, GachaResult } from '../models/gacha';
 
  const store = useStore(key);
- const rarity: string = ref("SSR");
+ const rarities = Object.values(RARITY);
+ const rarity: string = ref("レアリティ");
  const itemName: string = ref("20170519_oota.png");
 
  const itemPath = computed((): string => {
@@ -30,26 +35,15 @@
  });
 
  const draw = (): void => {
-   store.commit("increment");
    const model = new GachaModel(store.state.gacha);
    const result: GachaResult  = model.draw();
+   store.commit("increment", result.rarity);
    rarity.value = result.rarity;
    itemName.value = result.name;
  };
 
  onMounted(() => {
-   const getJson = async () => {
-     let res;
-     try {
-       res = await axios.get('/gacha/gacha.json');
-     } catch (err) {
-       console.log(err);
-       return;
-     }
-     const gacha: Gacha = res.data;
-     store.commit("initGacha", gacha);
-   };
-   getJson();
+   initGacha();
  });
 </script>
 
