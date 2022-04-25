@@ -12,3 +12,5 @@ build:
 sync:
 	rsync -av -e ssh ./dist/ conoha:/root/suna/public/
 	rsync -av -e ssh ./bin/ conoha:/root/suna/bin/
+
+deploy: build sync
