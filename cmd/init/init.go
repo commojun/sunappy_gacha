@@ -108,14 +108,14 @@ func CalcRarity(str string) int {
 	hexstr := hex.EncodeToString(md5sum[:])
 
 	// big.Intにする
-	numBig, ok := big.NewInt(1).SetString(hexstr, 16)
+	numBig, ok := new(big.Int).SetString(hexstr, 16)
 	if !ok {
 		log.Fatalln("failed to get odds of " + str)
 	}
 
 	// Int64最大値で割った余りを計算する
 	maxInt := big.NewInt(math.MaxInt64)
-	numInt64 := numBig.Mod(numBig, maxInt).Int64()
+	numInt64 := new(big.Int).Mod(numBig, maxInt).Int64()
 
 	// numInt64をSeedにして乱数生成し評価値とする(0~99)
 	rand.Seed(numInt64)
