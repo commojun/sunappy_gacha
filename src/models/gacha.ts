@@ -1,3 +1,5 @@
+import { Store } from 'vuex';
+import { State } from '../store/store';
 // 参考
 // https://www.kabuku.co.jp/developers/good-bye-typescript-enum
 export const RARITY = {
@@ -24,9 +26,11 @@ export type GachaResult = {
 
 export class GachaModel {
   protected readonly config: Gacha;
+  protected store: Store<State>;
 
-  constructor(config: Gacha) {
-    this.config = config;
+  constructor(store: Store<State>) {
+    this.store = store;
+    this.config = store.state.gacha;
   }
 
   private random(max: number): number {
@@ -46,10 +50,17 @@ export class GachaModel {
     const lot: number = this.random(table.length);
     const name: string = table[lot];
 
-    return {
+    const result = {
       rarity: rarity,
       name: name,
     };
+
+    // 回数のインクリメント
+    this.store.commit("increment", rarity);
+    // 履歴の追加
+    this.store.commit("addToHistory", result);
+
+    return result;
   }
 
   drawRarity(): RARITY {

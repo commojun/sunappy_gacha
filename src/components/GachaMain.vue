@@ -21,6 +21,7 @@
  import { key, initGacha } from '../store/store';
  import { RARITY, GachaModel, GachaResult } from '../models/gacha';
 
+ var model: GachaModel;
  const store = useStore(key);
  const rarities = Object.values(RARITY);
  const rarity: string = ref("ガチャ結果がここに出ます");
@@ -35,15 +36,14 @@
  });
 
  const draw = (): void => {
-   const model = new GachaModel(store.state.gacha);
-   const result: GachaResult  = model.draw();
-   store.commit("increment", result.rarity);
+   const result: GachaResult = model.draw();
    rarity.value = result.rarity;
    itemName.value = result.name;
  };
 
  onMounted(() => {
    initGacha();
+   model = new GachaModel(store);
  });
 </script>
 

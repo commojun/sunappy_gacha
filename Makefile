@@ -1,12 +1,15 @@
 export LOCAL_FOLDER=./public/gacha
 
+clean:
+	-rm bin/init
+
 bin/init:
 	go build -o bin/init ./cmd/init/init.go
 
 init-gacha:
 	bin/init
 
-build:
+build: bin/init
 	npm run build
 
 sync:

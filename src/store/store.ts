@@ -1,7 +1,8 @@
 import { InjectionKey } from 'vue';
 import { createStore, Store } from 'vuex';
 import { Gacha, RARITY } from '../models/gacha';
- import axios from 'axios';
+import axios from 'axios';
+import createPersistedState from 'vuex-persistedstate';
 
 export type State = {
   gacha: Gacha,
@@ -9,6 +10,10 @@ export type State = {
   rarityCount: {
     [key in RARITY]: number;
   },
+  drawHistory: {
+    rarity: RARITY,
+    name: string,
+  }[],
 };
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -36,6 +41,7 @@ export const store = createStore<State>({
       [RARITY.R]: 0,
       [RARITY.N]: 0,
     },
+    drawHistory: [],
   },
   mutations: {
     initGacha: (state: State, json: Gacha) => {
@@ -45,7 +51,16 @@ export const store = createStore<State>({
       state.count++;
       state.rarityCount[rarity]++;
     },
+    addToHistory: (state: State, result: {rarity: RARITY, name: string}) => {
+      state.drawHistory.push({
+        rarity: result.rarity,
+        name: result.name,
+      });
+    },
   },
+  plugins: [
+    createPersistedState(),
+  ],
 });
 
 // onMountedで呼ぶ想定
