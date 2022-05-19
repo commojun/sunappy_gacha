@@ -1,12 +1,12 @@
 <template>
   <v-app>
     <v-main>
-      <HelloWorld/>
+      <GachaMain/>
     </v-main>
   </v-app>
 </template>
 
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue';
+import GachaMain from './components/GachaMain.vue';
 
 </script>

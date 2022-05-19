@@ -1,7 +1,10 @@
 <template>
-  <div class="main">
-    <h1>ガチャ</h1>
-    <button @click="draw">がちゃを引く</button>
+  <v-container>
+    <h1 class="text-h1 text-center">ガチャ</h1>
+    <v-btn @click="draw">
+      <v-icon start icon="mdi-cash"></v-icon>
+      がちゃを引く
+    </v-btn>
     <h4>現在{{ spent }}円</h4>
     <h4>
       <span v-for="r of rarities" :key="r">
@@ -12,7 +15,7 @@
     <h1>{{ rarity }}</h1>
     <h2>{{ itemName }}</h2>
     <img :src="itemPath" class="result-item">
-  </div>
+  </v-container>
 </template>
 
 <script setup lang="ts">
