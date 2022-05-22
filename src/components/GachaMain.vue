@@ -25,9 +25,10 @@
   </v-container>
   <v-container class="text-center">
     <v-row justify="center">
-      <v-col cols="12">
+      <v-col cols="7" md="6">
         <v-btn
           height="100"
+          width="100%"
           class="rounded-pill text-h4"
           color="primary"
           @click="draw">
@@ -35,16 +36,18 @@
           ガチャを引く ￥300
         </v-btn>
       </v-col>
-      <v-col cols="4">
+    </v-row>
+    <v-row justify="center">
+      <v-col cols="7" md="4">
         <v-btn
           height="100"
-          min-width="100%"
+          width="100%"
           class="rounded-pill text-h5"
           size="x-large">
           提供割合（予定）
         </v-btn>
       </v-col>
-      <v-col cols="4">
+      <v-col cols="7" md="4">
         <v-btn
           height="100"
           width="100%"
@@ -59,7 +62,7 @@
           scrollable
           transition="dialog-bottom-transition">
           <v-card>
-            <v-toolbar>
+            <v-toolbar class="dialog-toolbar">
               <v-toolbar-title>ザ図鑑</v-toolbar-title>
               <v-spacer></v-spacer>
               <v-btn icon="mdi-close" @click="dialog = false"></v-btn>
@@ -81,7 +84,7 @@
  import { RARITY, GachaModel, GachaResult } from '../models/gacha';
  import GachaLibrary from './GachaLibrary.vue';
 
- var model: GachaModel;
+ let model: GachaModel;
  const store = useStore(key);
  const rarities = Object.values(RARITY);
  const rarity: string = ref("ガチャ結果がここに出ます");
@@ -115,5 +118,8 @@
  .gacha-result {
    max-width: 100%;
    max-height: 100%;
+ }
+ .dialog-toolbar {
+   overflow: visible;
  }
 </style>

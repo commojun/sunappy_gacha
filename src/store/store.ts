@@ -1,6 +1,7 @@
 import { InjectionKey } from 'vue';
 import { createStore, Store } from 'vuex';
 import { Gacha, RARITY } from '../models/gacha';
+import { UserItem } from '../models/library';
 import axios from 'axios';
 import createPersistedState from 'vuex-persistedstate';
 
@@ -14,6 +15,7 @@ export type State = {
     rarity: RARITY,
     name: string,
   }[],
+  userItem: UserItem,
 };
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -42,6 +44,7 @@ export const store = createStore<State>({
       [RARITY.N]: 0,
     },
     drawHistory: [],
+    userItem: {},
   },
   mutations: {
     initGacha: (state: State, json: Gacha) => {
