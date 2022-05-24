@@ -18,18 +18,18 @@
   <h2 class="text-center">{{ itemName }}</h2>
   <v-container class="text-center">
     <v-row class="fixed-height" justify="center">
-      <v-col cols="6" class="fixed-height d-flex align-center justify-center">
+      <v-col cols="12" md="6" class="fixed-height d-flex align-center justify-center">
         <img :src="itemPath" class="elevation-3 gacha-result" />
       </v-col>
     </v-row>
   </v-container>
   <v-container class="text-center">
     <v-row justify="center">
-      <v-col cols="7" md="6">
+      <v-col cols="12" md="6">
         <v-btn
           height="100"
           width="100%"
-          class="rounded-pill text-h4"
+          class="rounded-pill text-md-h4"
           color="primary"
           @click="draw">
           <v-icon start icon="mdi-cash"></v-icon>
@@ -38,20 +38,20 @@
       </v-col>
     </v-row>
     <v-row justify="center">
-      <v-col cols="7" md="4">
+      <v-col cols="12" md="4">
         <v-btn
-          height="100"
+          height="70"
           width="100%"
-          class="rounded-pill text-h5"
+          class="rounded-pill text-md-h5"
           size="x-large">
           提供割合（予定）
         </v-btn>
       </v-col>
-      <v-col cols="7" md="4">
+      <v-col cols="12" md="4">
         <v-btn
-          height="100"
+          height="70"
           width="100%"
-          class="rounded-pill text-h5"
+          class="rounded-pill text-md-h5"
           size="x-large"
           @click="dialog = true">
           図鑑
