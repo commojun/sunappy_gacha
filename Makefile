@@ -1,7 +1,7 @@
 export LOCAL_FOLDER=./public/gacha
 
 cron:
-	docker compose build --force-rm --no-cache
+	docker pull commojun/cron:latest
 
 up:
 	docker compose up -d
