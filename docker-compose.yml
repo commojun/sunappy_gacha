@@ -6,7 +6,7 @@ services:
     environment:
       CRONTAB_FILE: /cron/crontab
     volumes:
-      - $PWD/cron/cron:/cron/
+      - $PWD/cron/:/cron/
       - /root/suna/:/root/suna/
     logging:
       options:
