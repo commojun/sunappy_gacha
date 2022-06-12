@@ -1,1 +1,2 @@
-05 * * * * cd / ; /init >> /var/log/cron.log 2>&1
+05 * * * * source /root/suna/envfile ; cd / ; /init >> /var/log/cron.log 2>&1
+* * * * * echo "aaaaaaaaaaaa" >> /var/log/cron.log 2>&1
