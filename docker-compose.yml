@@ -1,12 +1,12 @@
 version: "3"
 services:
   gacha-cron:
-    image: gacha-cron:latest
-    build:
-      context: .
-      dockerfile: ./docker/cron/Dockerfile
+    image: commojun/cron:latest
     restart: always
+    environment:
+      CRONTAB_FILE: /crontab
     volumes:
+      - $PWD/crontab:/crontab
       - /root/suna/:/root/suna/
     logging:
       options:
