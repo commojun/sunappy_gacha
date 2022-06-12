@@ -1,0 +1,15 @@
+version: "3"
+services:
+  gacha-cron:
+    image: gacha-cron:latest
+    build:
+      context: .
+      dockerfile: ./docker/cron/Dockerfile
+    restart: always
+    volumes:
+      - .envrc:/envfile
+      - /root/suna/public/:/root/suna/public/
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"

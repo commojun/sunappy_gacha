@@ -1,5 +1,14 @@
 export LOCAL_FOLDER=./public/gacha
 
+cron:
+	docker compose build --force-rm --no-cache
+
+up:
+	docker compose up -d
+
+shell:
+	docker compose exec gacha-cron bash
+
 clean:
 	-rm bin/init
 
