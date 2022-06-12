@@ -1,5 +1,7 @@
 export LOCAL_FOLDER=./public/gacha
 
+PHONY: cron
+
 cron:
 	docker pull commojun/cron:latest
 
