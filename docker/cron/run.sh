@@ -1,4 +1,4 @@
 #!/bin/bash
 
-source /envfile
+source /root/suna/envfile
 cron -f
