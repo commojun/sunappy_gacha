@@ -4,9 +4,9 @@ services:
     image: commojun/cron:latest
     restart: always
     environment:
-      CRONTAB_FILE: /crontab
+      CRONTAB_FILE: /cron/crontab
     volumes:
-      - $PWD/cron/crontab:/crontab
+      - $PWD/cron/cron:/cron/
       - /root/suna/:/root/suna/
     logging:
       options:

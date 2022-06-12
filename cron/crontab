@@ -1,4 +1,4 @@
 TZ=Asia/Tokyo
 
-05 * * * * source /root/suna/envfile && /root/suna/bin/init > /proc/1/fd/1 2>&1
+05 * * * * /cron/exec-init.sh > /proc/1/fd/1 2>&1
 00 * * * * date > /proc/1/fd/1 2>&1
