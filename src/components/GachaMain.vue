@@ -3,7 +3,7 @@
   <h4>現在{{ spent }}円</h4>
   <h4>
     <span v-for="r of rarities" :key="r">
-      {{ r }}: {{ store.state.rarityCount[r] }}個
+      {{ r }}: {{ store.state.userData.rarityCount[r] }}個
     </span>
   </h4>
   <h1 class="text-center">{{ rarity }}</h1>
@@ -82,9 +82,11 @@
  import { useStore } from 'vuex';
  import { key, initGacha } from '../store/store';
  import { RARITY, GachaModel, GachaResult } from '../models/gacha';
+ import { LibraryModel } from '../models/library.ts';
  import GachaLibrary from './GachaLibrary.vue';
 
- let model: GachaModel;
+ let gachaModel: GachaModel;
+ let libraryModel: LibraryModel;
  const store = useStore(key);
  const rarities = Object.values(RARITY);
  const rarity: string = ref("ガチャ結果がここに出ます");
@@ -97,11 +99,14 @@
  });
 
  const spent = computed((): number => {
-   return store.state.count * 300;
+   return store.state.userData.count * 300;
  });
 
  const draw = (): void => {
-   const result: GachaResult = model.draw();
+   const result: GachaResult = gachaModel.draw();
+   libraryModel.updateUserData(result);
+
+   // 表示の更新
    rarity.value = result.rarity;
    rarityStar.value = result.rarityNum;
    itemName.value = result.name;
@@ -109,7 +114,8 @@
 
  onMounted(() => {
    initGacha();
-   model = new GachaModel(store);
+   gachaModel = new GachaModel(store.state.gacha);
+   libraryModel = new LibraryModel(store);
  });
 </script>
 
