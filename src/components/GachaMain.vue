@@ -68,7 +68,7 @@
               <v-btn icon="mdi-close" @click="dialog = false"></v-btn>
             </v-toolbar>
             <v-card-text>
-              <GachaLibrary></GachaLibrary>
+              <GachaLibrary :libraryModel="libraryModel"></GachaLibrary>
             </v-card-text>
           </v-card>
         </v-dialog>
@@ -86,7 +86,7 @@
  import GachaLibrary from './GachaLibrary.vue';
 
  let gachaModel: GachaModel;
- let libraryModel: LibraryModel;
+ let libraryModel: LibraryModel = ref(null);
  const store = useStore(key);
  const rarities = Object.values(RARITY);
  const rarity: string = ref("ガチャ結果がここに出ます");
@@ -104,7 +104,7 @@
 
  const draw = (): void => {
    const result: GachaResult = gachaModel.draw();
-   libraryModel.updateUserData(result);
+   libraryModel.value.updateUserData(result);
 
    // 表示の更新
    rarity.value = result.rarity;
@@ -115,7 +115,7 @@
  onMounted(() => {
    initGacha();
    gachaModel = new GachaModel(store.state.gacha);
-   libraryModel = new LibraryModel(store);
+   libraryModel.value = new LibraryModel(store);
  });
 </script>
 
