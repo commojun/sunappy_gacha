@@ -63,7 +63,7 @@
           transition="dialog-bottom-transition">
           <v-card>
             <v-toolbar class="dialog-toolbar">
-              <v-toolbar-title>ザ図鑑</v-toolbar-title>
+              <v-toolbar-title>コンプリート図鑑</v-toolbar-title>
               <v-spacer></v-spacer>
               <v-btn icon="mdi-close" @click="dialog = false"></v-btn>
             </v-toolbar>

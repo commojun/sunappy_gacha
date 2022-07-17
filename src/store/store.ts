@@ -37,7 +37,7 @@ export const store = createStore<State>({
         [RARITY.N]: 0,
       },
       drawHistory: [],
-      userItem: {},
+      userItems: {},
     },
   },
   mutations: {
@@ -55,14 +55,14 @@ export const store = createStore<State>({
       });
     },
     newGachaItem: (state: State, result: GachaResult) => {
-      state.userData.userItem[result.name] = {
+      state.userData.userItems[result.name] = {
         amount: 1,
         lastUpdate: new Date(),
       };
     },
     updateGachaItem: (state: State, result: GachaResult) => {
-      state.userData.userItem[result.name].amount++;
-      state.userData.userItem[result.name].lastUpdate = new Date();
+      state.userData.userItems[result.name].amount++;
+      state.userData.userItems[result.name].lastUpdate = new Date();
     },
   },
   plugins: [

@@ -11,7 +11,7 @@ export type UserData = {
     rarity: RARITY,
     name: string,
   }[],
-  userItem: {
+  userItems: {
     [name in string]: UserItem;
   },
 };
@@ -24,40 +24,21 @@ export type UserItem = {
 export type LibraryItem = {
   name: string,
   rarity: RARITY,
-  amount: number,
-  lastUpdate: Date | null,
+  order: number,
 };
 
 export class LibraryModel {
-  protected store: Store<State>;
+  private store: Store<State>;
   protected items: LibraryItem[];
+  protected order: number = 1;
 
   constructor(store: Store<State>) {
     this.store = store;
     this.items = this.initLibraryItems();
   }
 
-  private initLibraryItems(): LibraryItem[] {
-    const gacha: Gacha = this.store.state.gacha;
-    const userData: UserData = this.store.state.userData;
-    const items: LibraryItem[] = [];
-    for (const rarity of Object.values(RARITY)) {
-      for (const name of gacha.table[rarity]){
-        const amount = userData.userItem[name] ? userData.userItem[name].amount : 0;
-        const lastUpdate = userData.userItem[name] ? userData.userItem[name].lastUpdate : null;
-        items.push({
-          name: name,
-          rarity: rarity,
-          amount: amount,
-          lastUpdate: lastUpdate,
-        });
-      }
-    }
-    return items;
-  }
-
   private updateUserItem(result: GachaResult): void {
-    if(this.store.state.userData.userItem[result.name]) {
+    if(this.store.state.userData.userItems[result.name]) {
       this.store.commit("updateGachaItem", result);
     }
     else {
@@ -65,8 +46,45 @@ export class LibraryModel {
     }
   }
 
+  private calcOrder(rarity: RARITY): number{
+    let rarityOffset = 0;
+    switch(rarity) {
+      case RARITY.SR:
+        rarityOffset = 1000;
+        break;
+      case RARITY.R:
+        rarityOffset = 1000000;
+        break;
+      case RARITY.N:
+        rarityOffset = 1000000000;
+        break;
+      default:
+    }
+    const result = this.order + rarityOffset;
+    this.order++;
+    return result;
+  }
+
+  private initLibraryItems(): LibraryItem[] {
+    const gacha: Gacha = this.store.state.gacha;
+    const items: LibraryItem[] = [];
+
+    for (const rarity of Object.values(RARITY)) {
+      for (const name of gacha.table[rarity]){
+        items.push({
+          name: name,
+          rarity: rarity,
+          order: this.calcOrder(rarity),
+        });
+      }
+    }
+    items.sort((a, b) => {
+      return a.order - b.order;
+    });
+    return items;
+  }
+
   updateUserData(result: GachaResult): void {
-    console.log("asfja;oeifja;oi");
     // 回数のインクリメント
     this.store.commit("increment", result.rarity);
     // 履歴の追加
