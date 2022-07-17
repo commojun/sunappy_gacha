@@ -10,6 +10,13 @@ export const RARITY = {
 } as const;
 export type RARITY = typeof RARITY[keyof typeof RARITY];
 
+const RarityNum = {
+  "N": 1,
+  "R": 2,
+  "SR": 3,
+  "SSR": 4,
+};
+
 export type Gacha = {
   emission_rate: {
     [key in RARITY]: number;
@@ -52,6 +59,7 @@ export class GachaModel {
 
     const result = {
       rarity: rarity,
+      rarityNum: RarityNum[rarity],
       name: name,
     };
 

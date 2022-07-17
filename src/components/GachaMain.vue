@@ -12,7 +12,7 @@
       color="yellow"
       length="4"
       size="64"
-      :model-value="3"
+      v-model="rarityStar"
     ></v-rating>
   </h1>
   <h2 class="text-center">{{ itemName }}</h2>
@@ -88,6 +88,7 @@
  const store = useStore(key);
  const rarities = Object.values(RARITY);
  const rarity: string = ref("ガチャ結果がここに出ます");
+ const rarityStar: number = ref(0);
  const itemName: string = ref("../.." + require("@/assets/gachagacha.png"));
  const dialog = ref(false);
 
@@ -102,6 +103,7 @@
  const draw = (): void => {
    const result: GachaResult = model.draw();
    rarity.value = result.rarity;
+   rarityStar.value = result.rarityNum;
    itemName.value = result.name;
  };
 
