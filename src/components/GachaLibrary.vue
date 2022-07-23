@@ -70,9 +70,11 @@
   <v-overlay
     v-model="overlay"
     class="d-flex justify-center align-center"
-    max-height="100%"
-    max-width="100%">
-    <img :src="overlaySrc">
+    max-height="95%"
+    max-width="95%">
+    <img
+      class="overlay-img"
+      :src="overlaySrc">
   </v-overlay>
 </template>
 
@@ -121,3 +123,10 @@
    return props.libraryModel.items.filter(item => userItems[item.name]);
  });
 </script>
+
+<style scoped>
+ .overlay-img {
+   height: 100%;
+   width: 100%;
+ }
+</style>
