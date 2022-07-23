@@ -1,27 +1,28 @@
 <template>
   <v-container class="text-center">
     <h1 class="text-h1 text-center">ガチャ</h1>
-    <h1 class="text-center">{{ rarity }}</h1>
-    <h1 class="text-center">
+    <v-card>
       <v-rating
         color="yellow"
         length="4"
         size="64"
         v-model="rarityStar"
       ></v-rating>
-    </h1>
-    <h2 class="text-center">{{ itemName }}</h2>
-    <v-row class="fixed-height" justify="center">
-      <v-col cols="12" md="6" class="fixed-height d-flex align-center justify-center">
-        <img :src="itemPath" class="elevation-3 gacha-result" />
-      </v-col>
-    </v-row>
+      <v-row class="fixed-height" justify="center">
+        <v-col cols="12" md="6" class="fixed-height d-flex align-center justify-center">
+          <img :src="itemPath" class="elevation-3 gacha-result" />
+        </v-col>
+      </v-row>
+      <v-card-text>
+        <strong>{{ rarity }}</strong>: {{ itemName }}
+      </v-card-text>
+    </v-card>
     <v-row justify="center">
       <v-col cols="12" md="6">
         <v-btn
-          height="100"
+          height="70"
           width="100%"
-          class="rounded-pill text-md-h4"
+          class="rounded-pill text-md-h5"
           color="primary"
           @click="draw">
           <v-icon start icon="mdi-cash"></v-icon>
