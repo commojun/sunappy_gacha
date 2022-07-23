@@ -1,29 +1,21 @@
 <template>
-  <h1 class="text-h1 text-center">ガチャ</h1>
-  <h4>現在{{ spent }}円</h4>
-  <h4>
-    <span v-for="r of rarities" :key="r">
-      {{ r }}: {{ store.state.userData.rarityCount[r] }}個
-    </span>
-  </h4>
-  <h1 class="text-center">{{ rarity }}</h1>
-  <h1 class="text-center">
-    <v-rating
-      color="yellow"
-      length="4"
-      size="64"
-      v-model="rarityStar"
-    ></v-rating>
-  </h1>
-  <h2 class="text-center">{{ itemName }}</h2>
   <v-container class="text-center">
+    <h1 class="text-h1 text-center">ガチャ</h1>
+    <h1 class="text-center">{{ rarity }}</h1>
+    <h1 class="text-center">
+      <v-rating
+        color="yellow"
+        length="4"
+        size="64"
+        v-model="rarityStar"
+      ></v-rating>
+    </h1>
+    <h2 class="text-center">{{ itemName }}</h2>
     <v-row class="fixed-height" justify="center">
       <v-col cols="12" md="6" class="fixed-height d-flex align-center justify-center">
         <img :src="itemPath" class="elevation-3 gacha-result" />
       </v-col>
     </v-row>
-  </v-container>
-  <v-container class="text-center">
     <v-row justify="center">
       <v-col cols="12" md="6">
         <v-btn
@@ -63,7 +55,7 @@
           transition="dialog-bottom-transition">
           <v-card>
             <v-toolbar class="dialog-toolbar">
-              <v-toolbar-title>コンプリート図鑑</v-toolbar-title>
+              <v-toolbar-title>図鑑</v-toolbar-title>
               <v-spacer></v-spacer>
               <v-btn icon="mdi-close" @click="dialog = false"></v-btn>
             </v-toolbar>
@@ -81,14 +73,13 @@
  import { ref, computed, onMounted } from 'vue';
  import { useStore } from 'vuex';
  import { key, initGacha } from '../store/store';
- import { RARITY, GachaModel, GachaResult } from '../models/gacha';
+ import { GachaModel, GachaResult } from '../models/gacha';
  import { LibraryModel } from '../models/library.ts';
  import GachaLibrary from './GachaLibrary.vue';
 
  let gachaModel: GachaModel;
  let libraryModel: LibraryModel = ref(null);
  const store = useStore(key);
- const rarities = Object.values(RARITY);
  const rarity: string = ref("ガチャ結果がここに出ます");
  const rarityStar: number = ref(0);
  const itemName: string = ref("../.." + require("@/assets/gachagacha.png"));
@@ -96,10 +87,6 @@
 
  const itemPath = computed((): string => {
    return `/gacha/img/${itemName.value}`;
- });
-
- const spent = computed((): number => {
-   return store.state.userData.count * 300;
  });
 
  const draw = (): void => {
