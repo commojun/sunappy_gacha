@@ -52,18 +52,32 @@
       :key="item.name"
       md="3"
       cols="6">
-      <v-card color="#FFEBEE">
+      <v-card
+        color="#FFEBEE"
+        hover="true"
+        elevation="1">
         <v-card-title>{{ item.rarity }}</v-card-title>
-        <v-img height="150" :src="itemPath(item.name)"></v-img>
+        <v-img
+          height="150"
+          :src="itemPath(item.name)"
+          @click="showOverlay(item.name)"
+        ></v-img>
         <v-card-text>{{ item.name }}</v-card-text>
         <v-card-subtitle class="justify-end">所有: {{ havingAmount(item.name) }}</v-card-subtitle>
       </v-card>
     </v-col>
   </v-row>
+  <v-overlay
+    v-model="overlay"
+    class="d-flex justify-center align-center"
+    max-height="100%"
+    max-width="100%">
+    <img :src="overlaySrc">
+  </v-overlay>
 </template>
 
 <script setup lang="ts">
- import { computed, defineProps } from 'vue';
+ import { ref, computed, defineProps } from 'vue';
  import { useStore } from 'vuex';
  import { key } from '../store/store';
  import { RARITY } from '../models/gacha.ts';
@@ -75,6 +89,8 @@
  const props = defineProps<Props>();
  const store = useStore(key);
  const userItems = store.state.userData.userItems;
+ const overlay = ref(false);
+ const overlaySrc = ref("");
 
  const itemPath = (name: string): string => {
    return `/gacha/img/${name}`;
@@ -92,6 +108,10 @@
  const rarityProgress = (rarity: RARITY): number => {
    console.log(Math.floor(100 * raritySum(rarity) / rarityTotal(rarity)));
    return Math.floor(100 * raritySum(rarity) / rarityTotal(rarity));
+ };
+ const showOverlay = (name: string): void => {
+   overlaySrc.value = itemPath(name);
+   overlay.value = true;
  };
 
  const spent = computed((): number => {
