@@ -15,6 +15,13 @@ export const RarityNum = {
   "SSR": 4,
 };
 
+export const ColorByRarity = {
+  "N": "cyan",
+  "R": "light-green",
+  "SR": "deep-orange",
+  "SSR": "pink",
+};
+
 export type Gacha = {
   emission_rate: {
     [key in RARITY]: number;
@@ -28,7 +35,8 @@ export type GachaResult = {
   rarity: RARITY,
   rarityNum: number,
   name: string,
-}
+};
+
 
 export class GachaModel {
   protected readonly config: Gacha;

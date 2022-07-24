@@ -11,13 +11,14 @@
       <v-col cols="12"
              md="6">
         <div
-          class="elevation-3 rounded-lg my-2 px-2">
+          class="elevation-3 rounded-lg my-2 px-2"
+          :class="itemColor">
         <v-row justify="center">
           <v-col>
             <v-rating
+              class="gacha-rating"
               color="yellow"
               length="4"
-              size="64"
               readonly
               v-model="rarityStar"
             ></v-rating>
@@ -105,7 +106,7 @@
  import { ref, computed, onMounted } from 'vue';
  import { useStore } from 'vuex';
  import { key, initGacha } from '../store/store';
- import { GachaModel, GachaResult } from '../models/gacha';
+ import { GachaModel, GachaResult, ColorByRarity } from '../models/gacha';
  import { LibraryModel } from '../models/library.ts';
  import GachaLibrary from './GachaLibrary.vue';
 
@@ -121,6 +122,9 @@
  const itemPath = computed((): string => {
    return `/gacha/img/${itemName.value}`;
  });
+ const itemColor = computed((): string => {
+   return ColorByRarity[rarity.value] ? ColorByRarity[rarity.value] : "white";
+ });
 
  const draw = (): void => {
    const result: GachaResult = gachaModel.draw();
@@ -131,6 +135,7 @@
    rarityStar.value = result.rarityNum;
    itemName.value = result.name;
  };
+
 
  onMounted(() => {
    initGacha();
@@ -149,5 +154,8 @@
  }
  .dialog-toolbar {
    overflow: visible;
+ }
+ .gacha-rating .v-btn--icon {
+   font-size: 2rem !important;
  }
 </style>
