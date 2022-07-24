@@ -12,7 +12,7 @@
              md="6">
         <div
           class="elevation-3 rounded-lg my-2 px-2"
-          :class="`bg-${itemColor} ${resultCardAnimation}`">
+          :class="`bg-${itemColor}-lighten-3 ${resultCardAnimation}`">
         <v-row justify="center">
           <v-col>
             <v-rating
@@ -34,13 +34,21 @@
         </v-row>
         <v-row justify="center">
           <v-col>
-            <strong>{{ rarity }}</strong>: {{ itemName }}
-            <span
+            <v-chip
+              label
               v-show="isNew"
               :class="isNewAnimation"
-              class="text-red font-weight-bold">
+              class="font-weight-bold bg-white text-red mr-2">
               New!!
-            </span>
+            </v-chip>
+            <v-chip
+              :class="`bg-${itemColor}-darken-4`"
+              label
+              variant="outlined"
+              class="font-weight-bold">
+              {{ rarity }}
+            </v-chip>
+            {{ itemName }}
           </v-col>
         </v-row>
         </div>
@@ -123,6 +131,7 @@
  let gachaModel: GachaModel;
  let libraryModel: LibraryModel = ref(null);
  const store = useStore(key);
+ // reactive states
  const rarity: string = ref("-");
  const rarityStar: number = ref(0);
  const itemName: string = ref("../.." + require("@/assets/gachagacha.png"));
@@ -130,7 +139,9 @@
  const soon = ref(false);
  const resultCardAnimation = ref("");
  const resultImgAnimation = ref("");
+ const isNewAnimation = ref("");
  const drawLock = ref(false);
+ const isNew = ref(false);
 
  const itemPath = computed((): string => {
    return `/gacha/img/${itemName.value}`;
@@ -140,16 +151,22 @@
  });
 
  const draw = (): void => {
+   // ロックがかかっていると引けない
    if (drawLock.value) {
      return;
    }
    drawLock.value = true;
-   const result: GachaResult = gachaModel.draw();
-   libraryModel.value.updateUserData(result);
 
-   // 表示の更新
+   // 引く前に表示をすべて消す
    resultCardAnimation.value = "transparent";
    resultImgAnimation.value = "transparent";
+   isNewAnimation.value = "transparent";
+
+   // 引く
+   const result: GachaResult = gachaModel.draw();
+   isNew.value = libraryModel.value.updateUserData(result);
+
+   // 表示の更新
    rarity.value = result.rarity;
    rarityStar.value = result.rarityNum;
    itemName.value = result.name;
@@ -159,6 +176,12 @@
    setTimeout(() => {
      resultImgAnimation.value = "popup";
    }, 1000);
+   //   if (1) {
+   isNew.value = true;
+     setTimeout(() => {
+       isNewAnimation.value = "popup";
+     }, 1400);
+   //   }
    setTimeout(() => {
      drawLock.value = false;
    }, 1500);
