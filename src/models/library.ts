@@ -38,13 +38,16 @@ export class LibraryModel {
     this.items = this.initLibraryItems();
   }
 
-  private updateUserItem(result: GachaResult): void {
+  private updateUserItem(result: GachaResult): boolean {
+    let isNew = false;
     if(this.store.state.userData.userItems[result.name]) {
       this.store.commit("updateGachaItem", result);
     }
     else {
+      isNew = true;
       this.store.commit("newGachaItem", result);
     }
+    return isNew;
   }
 
   private calcOrder(rarity: RARITY): number{
@@ -86,13 +89,15 @@ export class LibraryModel {
     return items;
   }
 
-  updateUserData(result: GachaResult): void {
+  // ユーザのアイテム保有状況を更新し、新アイテムだったかどうかを返す
+  updateUserData(result: GachaResult): boolean {
     // 回数のインクリメント
     this.store.commit("increment", result.rarity);
     // 履歴の追加
     this.store.commit("addToHistory", result);
 
-    this.updateUserItem(result);
+    const isNew = this.updateUserItem(result);
+    return isNew;
   }
 
 }
