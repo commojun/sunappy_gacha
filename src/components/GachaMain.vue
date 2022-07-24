@@ -35,6 +35,12 @@
         <v-row justify="center">
           <v-col>
             <strong>{{ rarity }}</strong>: {{ itemName }}
+            <span
+              v-show="isNew"
+              :class="isNewAnimation"
+              class="text-red font-weight-bold">
+              New!!
+            </span>
           </v-col>
         </v-row>
         </div>
