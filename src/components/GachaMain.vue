@@ -12,7 +12,7 @@
              md="6">
         <div
           class="elevation-3 rounded-lg my-2 px-2"
-          :class="itemColor">
+          :class="`bg-${itemColor}`">
         <v-row justify="center">
           <v-col>
             <v-rating
@@ -43,7 +43,7 @@
           height="70"
           width="100%"
           class="rounded-lg text-md-h5"
-          color="primary"
+          color="amber"
           @click="draw">
           <v-icon start icon="mdi-cash"></v-icon>
           ガチャを引く ￥300
@@ -113,7 +113,7 @@
  let gachaModel: GachaModel;
  let libraryModel: LibraryModel = ref(null);
  const store = useStore(key);
- const rarity: string = ref("ガチャ結果がここに出ます");
+ const rarity: string = ref("-");
  const rarityStar: number = ref(0);
  const itemName: string = ref("../.." + require("@/assets/gachagacha.png"));
  const dialog = ref(false);

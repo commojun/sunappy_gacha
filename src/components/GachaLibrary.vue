@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-card color="#BBDEFB">
+      <v-card color="lime-lighten-4">
         <v-card-title>コンプリート状況</v-card-title>
         <v-card-text>
           <v-row
@@ -19,7 +19,7 @@
               class="d-flex flex-grow-1 align-center">
               <v-progress-linear
                 :model-value="rarityProgress(rarity)"
-                color="#FF4081"
+                :color="ColorByRarity[rarity]"
                 height="15"></v-progress-linear>
             </v-col>
           </v-row>
@@ -53,7 +53,7 @@
       md="3"
       cols="6">
       <v-card
-        color="#FFEBEE"
+        :color="`${ColorByRarity[item.rarity]}-lighten-4`"
         hover
         elevation="1">
         <v-card-title>
@@ -64,6 +64,7 @@
           </v-row>
         </v-card-title>
         <v-img
+          class="mx-1"
           height="150"
           :src="itemPath(item.name)"
           @click="showOverlay(item.name)"
@@ -88,7 +89,7 @@
  import { ref, computed, defineProps } from 'vue';
  import { useStore } from 'vuex';
  import { key } from '../store/store';
- import { RARITY } from '../models/gacha.ts';
+ import { RARITY, ColorByRarity } from '../models/gacha.ts';
  import { LibraryModel, LibraryItem } from '../models/library';
 
  interface Props {
