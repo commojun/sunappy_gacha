@@ -18,6 +18,7 @@
               color="yellow"
               length="4"
               size="64"
+              readonly
               v-model="rarityStar"
             ></v-rating>
           </v-col>
