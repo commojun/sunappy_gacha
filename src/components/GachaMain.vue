@@ -170,23 +170,26 @@
    rarity.value = result.rarity;
    rarityStar.value = result.rarityNum;
    itemName.value = result.name;
+   // アニメーション (ダブった場合はサクサク表示する)
+   const cardDelay = isNew.value ? 500 : 100;
    setTimeout(() => {
      resultCardAnimation.value = "fade-in";
-   }, 500);
+   }, cardDelay);
+   const imgDelay = cardDelay + (isNew.value ? 500 : 0);
    setTimeout(() => {
      resultImgAnimation.value = "popup";
-   }, 1000);
-   //   if (1) {
-   isNew.value = true;
+   }, imgDelay);
+   if (isNew.value) {
+     const newDelay = imgDelay + 400;
      setTimeout(() => {
        isNewAnimation.value = "popup";
-     }, 1400);
-   //   }
+     }, newDelay);
+   }
+   const lockDelay = imgDelay + (isNew.value ? 500 : 0);
    setTimeout(() => {
      drawLock.value = false;
-   }, 1500);
+   }, lockDelay);
  };
-
 
  onMounted(() => {
    initGacha();
