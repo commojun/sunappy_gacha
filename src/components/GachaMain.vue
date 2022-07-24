@@ -25,7 +25,9 @@
           </v-col>
         </v-row>
         <v-row justify="center">
-          <v-col class="fixed-height d-flex align-center justify-center">
+          <v-col
+            class="d-flex align-center justify-center"
+            :style="{height: gachaHeight+'px'}">
             <img
               :src="itemPath"
               class="elevation-1 gacha-result"
@@ -142,6 +144,8 @@
  const isNewAnimation = ref("");
  const drawLock = ref(false);
  const isNew = ref(false);
+
+ const gachaHeight: number = window.innerWidth < 500 ? window.innerWidth : 500;
 
  const itemPath = computed((): string => {
    return `/gacha/img/${itemName.value}`;
