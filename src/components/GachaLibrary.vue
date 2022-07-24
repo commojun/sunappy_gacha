@@ -54,7 +54,7 @@
       cols="6">
       <v-card
         color="#FFEBEE"
-        hover="true"
+        hover
         elevation="1">
         <v-card-title>{{ item.rarity }}</v-card-title>
         <v-img
@@ -108,7 +108,6 @@
    return store.state.gacha.table[rarity].length;
  };
  const rarityProgress = (rarity: RARITY): number => {
-   console.log(Math.floor(100 * raritySum(rarity) / rarityTotal(rarity)));
    return Math.floor(100 * raritySum(rarity) / rarityTotal(rarity));
  };
  const showOverlay = (name: string): void => {
@@ -122,6 +121,7 @@
  const items = computed((): LibraryItem[] => {
    return props.libraryModel.items.filter(item => userItems[item.name]);
  });
+
 </script>
 
 <style scoped>

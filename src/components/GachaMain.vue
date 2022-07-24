@@ -54,7 +54,8 @@
           height="70"
           width="100%"
           class="rounded-lg text-md-h5"
-          size="x-large">
+          size="x-large"
+          @click="soon = true">
           提供割合
         </v-btn>
       </v-col>
@@ -83,6 +84,17 @@
             </v-card-text>
           </v-card>
         </v-dialog>
+        <v-dialog v-model="soon">
+          <v-card>
+            <v-card-text>そのうち作ります</v-card-text>
+            <v-card-actions>
+              <v-btn
+                color="primary"
+                block
+                @click="soon = false">OK</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-col>
     </v-row>
   </v-container>
@@ -103,6 +115,7 @@
  const rarityStar: number = ref(0);
  const itemName: string = ref("../.." + require("@/assets/gachagacha.png"));
  const dialog = ref(false);
+ const soon = ref(false);
 
  const itemPath = computed((): string => {
    return `/gacha/img/${itemName.value}`;
