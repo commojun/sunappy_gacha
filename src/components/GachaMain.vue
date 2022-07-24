@@ -1,28 +1,46 @@
 <template>
   <v-container class="text-center">
-    <h1 class="text-h1 text-center">ガチャ</h1>
-    <v-card>
-      <v-rating
-        color="yellow"
-        length="4"
-        size="64"
-        v-model="rarityStar"
-      ></v-rating>
-      <v-row class="fixed-height" justify="center">
-        <v-col cols="12" md="6" class="fixed-height d-flex align-center justify-center">
-          <img :src="itemPath" class="elevation-3 gacha-result" />
-        </v-col>
-      </v-row>
-      <v-card-text>
-        <strong>{{ rarity }}</strong>: {{ itemName }}
-      </v-card-text>
-    </v-card>
+    <v-row justify="center">
+      <v-col
+        cols="12"
+        md="6">
+        <h1 class="text-h1 text-center">ガチャ</h1>
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col cols="12"
+             md="6">
+        <div
+          class="elevation-3 rounded-lg my-2 px-2">
+        <v-row justify="center">
+          <v-col>
+            <v-rating
+              color="yellow"
+              length="4"
+              size="64"
+              v-model="rarityStar"
+            ></v-rating>
+          </v-col>
+        </v-row>
+        <v-row justify="center">
+          <v-col class="fixed-height d-flex align-center justify-center">
+            <img :src="itemPath" class="elevation-1 gacha-result" />
+          </v-col>
+        </v-row>
+        <v-row justify="center">
+          <v-col>
+            <strong>{{ rarity }}</strong>: {{ itemName }}
+          </v-col>
+        </v-row>
+        </div>
+      </v-col>
+    </v-row>
     <v-row justify="center">
       <v-col cols="12" md="6">
         <v-btn
           height="70"
           width="100%"
-          class="rounded-pill text-md-h5"
+          class="rounded-lg text-md-h5"
           color="primary"
           @click="draw">
           <v-icon start icon="mdi-cash"></v-icon>
@@ -31,20 +49,20 @@
       </v-col>
     </v-row>
     <v-row justify="center">
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="3">
         <v-btn
           height="70"
           width="100%"
-          class="rounded-pill text-md-h5"
+          class="rounded-lg text-md-h5"
           size="x-large">
-          提供割合（予定）
+          提供割合
         </v-btn>
       </v-col>
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="3">
         <v-btn
           height="70"
           width="100%"
-          class="rounded-pill text-md-h5"
+          class="rounded-lg text-md-h5"
           size="x-large"
           @click="dialog = true">
           図鑑

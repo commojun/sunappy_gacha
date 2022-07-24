@@ -8,14 +8,14 @@
             v-for="rarity in RARITY"
             :key="rarity">
             <v-col
-              cols="6"
-              md="1"
+              cols="5"
+              md="2"
               class="flex-shrink-0 flex-grow-1">
               <strong>{{ rarity }}</strong>: {{ raritySum(rarity) }}/{{ rarityTotal(rarity) }}
             </v-col>
             <v-col
-              cols="6"
-              md="11"
+              cols="7"
+              md="10"
               class="d-flex flex-grow-1 align-center">
               <v-progress-linear
                 :model-value="rarityProgress(rarity)"
