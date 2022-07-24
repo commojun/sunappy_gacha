@@ -55,6 +55,7 @@
       <v-card
         :color="`${ColorByRarity[item.rarity]}-lighten-4`"
         hover
+        @click="showOverlay(item.name)"
         elevation="1">
         <v-card-title>
           <v-row
@@ -67,7 +68,6 @@
           class="mx-1"
           height="150"
           :src="itemPath(item.name)"
-          @click="showOverlay(item.name)"
         ></v-img>
         <v-card-text>{{ item.name }}</v-card-text>
         <v-card-subtitle class="justify-end pb-1">所有: {{ havingAmount(item.name) }}</v-card-subtitle>

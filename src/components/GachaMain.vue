@@ -12,7 +12,7 @@
              md="6">
         <div
           class="elevation-3 rounded-lg my-2 px-2"
-          :class="`bg-${itemColor}`">
+          :class="`bg-${itemColor} ${resultCardAnimation}`">
         <v-row justify="center">
           <v-col>
             <v-rating
@@ -26,7 +26,10 @@
         </v-row>
         <v-row justify="center">
           <v-col class="fixed-height d-flex align-center justify-center">
-            <img :src="itemPath" class="elevation-1 gacha-result" />
+            <img
+              :src="itemPath"
+              class="elevation-1 gacha-result"
+              :class="resultImgAnimation" />
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -44,6 +47,7 @@
           width="100%"
           class="rounded-lg text-md-h5"
           color="amber"
+          :disabled="drawLock"
           @click="draw">
           <v-icon start icon="mdi-cash"></v-icon>
           ガチャを引く ￥300
@@ -118,6 +122,9 @@
  const itemName: string = ref("../.." + require("@/assets/gachagacha.png"));
  const dialog = ref(false);
  const soon = ref(false);
+ const resultCardAnimation = ref("");
+ const resultImgAnimation = ref("");
+ const drawLock = ref(false);
 
  const itemPath = computed((): string => {
    return `/gacha/img/${itemName.value}`;
@@ -127,13 +134,28 @@
  });
 
  const draw = (): void => {
+   if (drawLock.value) {
+     return;
+   }
+   drawLock.value = true;
    const result: GachaResult = gachaModel.draw();
    libraryModel.value.updateUserData(result);
 
    // 表示の更新
+   resultCardAnimation.value = "transparent";
+   resultImgAnimation.value = "transparent";
    rarity.value = result.rarity;
    rarityStar.value = result.rarityNum;
    itemName.value = result.name;
+   setTimeout(() => {
+     resultCardAnimation.value = "fade-in";
+   }, 500);
+   setTimeout(() => {
+     resultImgAnimation.value = "popup";
+   }, 1000);
+   setTimeout(() => {
+     drawLock.value = false;
+   }, 1500);
  };
 
 
@@ -157,5 +179,39 @@
  }
  .gacha-rating .v-btn--icon {
    font-size: 2rem !important;
+ }
+
+ .transparent {
+   opacity: 0%;
+ }
+ .fade-in {
+   animation-name: fade-in-animation;
+   animation-fill-mode: forwards;
+   animation-duration: 0.5s;
+ }
+ .popup {
+   animation-name: popup-animation;
+   animation-fill-mode: forwards;
+   animation-duration: 0.3s;
+ }
+
+ @keyframes fade-in-animation {
+   from {
+     opacity: 0%;
+   }
+   to {
+     opacity: 100%;
+   }
+ }
+ @keyframes popup-animation {
+   0% {
+     transform: scale(0.8);
+   }
+   50% {
+     transform: scale(1.05);
+   }
+   100% {
+     transform: scale(1);
+   }
  }
 </style>
