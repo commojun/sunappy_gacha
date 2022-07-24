@@ -19,6 +19,7 @@
               class="gacha-rating"
               color="yellow"
               length="4"
+              size="64"
               readonly
               v-model="rarityStar"
             ></v-rating>
@@ -35,7 +36,7 @@
           </v-col>
         </v-row>
         <v-row justify="center">
-          <v-col>
+          <v-col :class="initialState ? 'transparent' : ''">
             <v-chip
               label
               v-show="isNew"
@@ -134,16 +135,17 @@
  let libraryModel: LibraryModel = ref(null);
  const store = useStore(key);
  // reactive states
+ const initialState: boolean = ref(true);
  const rarity: string = ref("-");
  const rarityStar: number = ref(0);
  const itemName: string = ref("../.." + require("@/assets/gachagacha.png"));
- const dialog = ref(false);
- const soon = ref(false);
- const resultCardAnimation = ref("");
- const resultImgAnimation = ref("");
- const isNewAnimation = ref("");
- const drawLock = ref(false);
- const isNew = ref(false);
+ const dialog: boolean = ref(false);
+ const soon: boolean = ref(false);
+ const resultCardAnimation: string = ref("");
+ const resultImgAnimation: string = ref("");
+ const isNewAnimation: string = ref("");
+ const drawLock: boolean = ref(false);
+ const isNew: boolean = ref(false);
 
  const gachaHeight: number = window.innerWidth < 500 ? window.innerWidth : 500;
 
@@ -159,6 +161,7 @@
    if (drawLock.value) {
      return;
    }
+   initialState.value = false;
    drawLock.value = true;
 
    // 引く前に表示をすべて消す
@@ -212,9 +215,6 @@
  }
  .dialog-toolbar {
    overflow: visible;
- }
- .gacha-rating .v-btn--icon {
-   font-size: 2rem !important;
  }
 
  .transparent {
