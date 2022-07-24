@@ -56,14 +56,20 @@
         color="#FFEBEE"
         hover
         elevation="1">
-        <v-card-title>{{ item.rarity }}</v-card-title>
+        <v-card-title>
+          <v-row
+            align="center"
+            class="mx-1 mt-1">
+            {{ item.rarity }}
+          </v-row>
+        </v-card-title>
         <v-img
           height="150"
           :src="itemPath(item.name)"
           @click="showOverlay(item.name)"
         ></v-img>
         <v-card-text>{{ item.name }}</v-card-text>
-        <v-card-subtitle class="justify-end">所有: {{ havingAmount(item.name) }}</v-card-subtitle>
+        <v-card-subtitle class="justify-end pb-1">所有: {{ havingAmount(item.name) }}</v-card-subtitle>
       </v-card>
     </v-col>
   </v-row>

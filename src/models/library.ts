@@ -1,6 +1,6 @@
 import { Store } from 'vuex';
 import { State } from '../store/store';
-import { Gacha, GachaResult, RARITY } from './gacha';
+import { Gacha, GachaResult, RarityNum, RARITY } from './gacha';
 
 export type UserData = {
   count: number,
@@ -24,6 +24,7 @@ export type UserItem = {
 export type LibraryItem = {
   name: string,
   rarity: RARITY,
+  rarityNum: number,
   order: number,
 };
 
@@ -74,6 +75,7 @@ export class LibraryModel {
         items.push({
           name: name,
           rarity: rarity,
+          rarityNum: RarityNum[rarity],
           order: this.calcOrder(rarity),
         });
       }

@@ -8,7 +8,7 @@ export const RARITY = {
 } as const;
 export type RARITY = typeof RARITY[keyof typeof RARITY];
 
-const RarityNum = {
+export const RarityNum = {
   "N": 1,
   "R": 2,
   "SR": 3,
