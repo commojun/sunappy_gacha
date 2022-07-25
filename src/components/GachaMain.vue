@@ -4,7 +4,7 @@
       <v-col
         cols="12"
         md="6">
-        <h1 class="text-h1 text-center">ガチャ</h1>
+        <v-img src="/gacha/logo.png" alt="ガチャ"></v-img>
       </v-col>
     </v-row>
     <v-row justify="center">
