@@ -53,14 +53,17 @@ export class LibraryModel {
   private calcOrder(rarity: RARITY): number{
     let rarityOffset = 0;
     switch(rarity) {
+      case RARITY.SSR:
+        rarityOffset = 1_000_000_000;
+        break;
       case RARITY.SR:
-        rarityOffset = 1000;
+        rarityOffset = 1_000_000;
         break;
       case RARITY.R:
-        rarityOffset = 1000000;
+        rarityOffset = 1_000;
         break;
       case RARITY.N:
-        rarityOffset = 1000000000;
+        rarityOffset = 1;
         break;
       default:
     }
@@ -84,7 +87,7 @@ export class LibraryModel {
       }
     }
     items.sort((a, b) => {
-      return a.order - b.order;
+      return b.order - a.order;
     });
     return items;
   }
