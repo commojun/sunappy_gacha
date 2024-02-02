@@ -12,3 +12,15 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
+  web:
+    image: nginx:alpine-slim
+    restart: always
+    volumes:
+      - /root/suna/public:/usr/share/nginx/html:ro
+    ports:
+      - '8056:80'
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
