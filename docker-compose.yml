@@ -24,3 +24,14 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
+  cloudflare:
+    restart: always
+    image: cloudflare/cloudflared
+    command: tunnel run
+    env_file:
+      - cloudflared.env
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
